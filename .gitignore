@@ -25,3 +25,11 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> PhpStorm Files ###
+/.idea
+###< PhpStorm Files ###
+
+###> Import Files ###
+/import
+###< Import Files ###
