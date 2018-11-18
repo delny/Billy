@@ -15,37 +15,47 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin/import", name="app_admin_import")
+     *
+     * @param Request $request
+     * @param PersonManager $personManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function import(Request $request, PersonManager $personManager)
     {
         $parser = new \PhpGedcom\Parser();
         $gedcom = $parser->parse('../import/billy.ged');
-        $id = 1;
+        $importCount = 0;
+        $updateCount = 0;
         //importation des personnes
         foreach ($gedcom->getIndi() as $individual) {
-            if($id == 4)
-            {
-                dump($individual);
-            }
-            // TODO : update if already exist
+            //get individual infos
             $lastName = $individual->getName()[0]->getSurn();
             $lastName = !empty($lastName) ? $lastName : 'Inconnu';
             $firstName = $individual->getName()[0]->getGivn();
             $firstName = !empty($firstName) ? $firstName : 'Inconnu';
             $birthDate = $this->getBirthDate($individual);
 
-            //create person
-            $person = $personManager->create();
+            //create ou update person
+            $person = $personManager->getOrCreateByPid($individual->getId());
+            if(empty($person->getId()))
+            {
+                $importCount++;
+            } else {
+                $updateCount++;
+            }
+            $person->setPid($individual->getId());
+            $person->setGender($individual->getSex());
             $person->setFirstName($firstName);
             $person->setLastName($lastName);
             if(!empty($birthDate)){
                 $person->setBirthDate(new \DateTime($birthDate));
             }
             $personManager->save($person);
-            $id++;
         }
         return $this->render('admin/import.html.twig', [
-            'count' => $id,
+            'importcount' => $importCount,
+            'updatecount' => $updateCount,
         ]);
     }
 

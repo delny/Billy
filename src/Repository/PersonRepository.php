@@ -19,6 +19,20 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
+    /**
+     * @param string $pid
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByPid(string $pid)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.pid = :pid')
+            ->setParameter('pid',$pid)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */

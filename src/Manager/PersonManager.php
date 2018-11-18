@@ -46,11 +46,36 @@ class PersonManager
     }
 
     /**
+     * @param $pid
+     * @return Person|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOrCreateByPid($pid)
+    {
+        $person = $this->getByPid($pid);
+        if(empty($person))
+        {
+            $person = $this->create();
+        }
+        return $person;
+    }
+
+    /**
      * @param $id
      * @return null|object
      */
     public function getById($id)
     {
         return $this->em->getRepository(Person::class)->find($id);
+    }
+
+    /**
+     * @param $pid
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getByPid($pid)
+    {
+        return $this->em->getRepository(Person::class)->findByPid($pid);
     }
 }

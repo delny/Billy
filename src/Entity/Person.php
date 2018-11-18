@@ -36,6 +36,16 @@ class Person
      */
     private $deathDate;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pid;
+
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $gender;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +95,30 @@ class Person
     public function setDeathDate(?\DateTimeInterface $deathDate): self
     {
         $this->deathDate = $deathDate;
+
+        return $this;
+    }
+
+    public function getPid(): ?string
+    {
+        return $this->pid;
+    }
+
+    public function setPid(string $pid): self
+    {
+        $this->pid = $pid;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }
