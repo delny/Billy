@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{parent()}}
+Fiche d'une personne
+{% endblock %}
+
+
+{% block body %}
+<h1>Fiche de {{ person.firstName }} {{ person.lastName }}</h1>
+
+{% endblock %}

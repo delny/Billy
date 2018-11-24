@@ -28,7 +28,11 @@ Liste des personnes
     <tbody>
     {% for person in persons %}
         <tr>
-            <td>{{ person.firstName }} {{ person.lastName }}</td>
+            <td>
+                <a href="{{ path('app_person_fiche', {'pid':person.pid}) }}">
+                    {{ person.firstName }} {{ person.lastName }}
+                </a>
+            </td>
             <td>{{ person.birthDate|date('d/m/Y') }}</td>
             <td>--</td>
             <td>
