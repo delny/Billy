@@ -1,3 +1,7 @@
-body {
-    background-color: lightgray;
+body
+{
+    color: black;
+    text-align: center;
+    font-family: 'Lora', serif;
+    margin:0px;
 }

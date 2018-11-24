@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <title>{% block title %}Billy - {% endblock %}</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="shortcut icon" type="image/x-icon" href="View/img/favicon.ico"/>
-  <link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>{% block title %}Billy - {% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}"/>
 </head>
 <body>
 <header>
-  <div class="container">
-    <nav role="navigation" class="menu">
-      <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('app_homepage')}}">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Liste des personnes</a>
-        </li>
-      </ul>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('app_homepage') }}">Billy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown link
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Param&egrave;tres</a>
+                            <a class="dropdown-item" href="#">Fiche public</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-link">Visiteur</li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link"  href="#">Liste</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Recensement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liste des AD</a>
+                </li>
+            </ul>
+        </div>
     </nav>
-  </div>
 </header>
 <div class="corps container">
-  {% block body '' %}
+    {% block body '' %}
 </div>
 <footer>
-  <div id="bottom-footer">
-    <div class="container bottom-footer-container">
-      <div class="site-info">
-        <a href="http://www.anthonydelgado.fr"> Anthonydelgado.fr </a><br/>
-      </div>
+    <div id="bottom-footer">
+        <div class="container bottom-footer-container">
+            <div class="site-info">
+                <a href="http://www.anthonydelgado.fr"> Anthonydelgado.fr </a><br/>
+            </div>
+        </div>
     </div>
-  </div>
 </footer>
 {% block javascripts %}
-<!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
 {% endblock %}
 </body>
 </html>
