@@ -78,4 +78,23 @@ class PersonManager
     {
         return $this->em->getRepository(Person::class)->findByPid($pid);
     }
+
+    /**
+     * @return Person[]|object[]
+     */
+    public function getAll()
+    {
+        return $this->em->getRepository(Person::class)->findAll();
+    }
+
+    /**
+     * @param $letter
+     * @return mixed
+     */
+    public function findByLetter($letter)
+    {
+        return $this->em->getRepository(Person::class)->findByLetter($letter);
+    }
+
+
 }

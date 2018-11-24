@@ -33,6 +33,19 @@ class PersonRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param string $letter
+     * @return mixed
+     */
+    public function findByLetter(string $letter)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.lastName Like :letter')
+            ->setParameter('letter', $letter.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */

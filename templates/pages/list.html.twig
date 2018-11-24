@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{parent()}}
+Liste des personnes
+{% endblock %}
+
+
+{% block body %}
+<h1>Liste des personnes</h1>
+<ul class="nav">
+    {% for letter in range('A','Z') %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_person_list', {'letter':letter}) }}">{{  letter }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Nom / Pr&eacute;nom(s)</th>
+        <th>Date de Naissance</th>
+        <th>Lieu de Naissance</th>
+        <th>Date de D&eacute;c&egrave;s</th>
+        <th>Lieu de D&eacute;c&egrave;s</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for person in persons %}
+        <tr>
+            <td>{{ person.firstName }} {{ person.lastName }}</td>
+            <td>{{ person.birthDate|date('d/m/Y') }}</td>
+            <td>--</td>
+            <td>
+                {% if person.deathDate is not empty %}
+                    {{ person.deathDate|date('d/m/Y') }}
+                {% endif %}
+            </td>
+            <td>--</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucune personne trouvé</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
