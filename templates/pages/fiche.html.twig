@@ -9,4 +9,101 @@ Fiche d'une personne
 {% block body %}
 <h1>Fiche de {{ person.firstName }} {{ person.lastName }}</h1>
 
+    <div class="parents">
+        <div class="card parent" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ person.parentsFamily.father.firstName }} {{ person.parentsFamily.father.lastName }}
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Père</h6>
+                <p class="card-text">
+                    {% if person.parentsFamily.father.birthDate is not empty %}
+                        Né le {{ person.parentsFamily.father.birthDate|date('d/m/Y') }}<br/>
+                    {% endif %}
+                    {% if person.parentsFamily.father.deathDate is not empty %}
+                       Décédé le {{ person.parentsFamily.father.deathDate|date('d/m/Y') }}
+                    {% endif %}
+                </p>
+                <a href="{{ path('app_person_fiche', {'pid':person.parentsFamily.father.pid}) }}" class="card-link">Voir sa fiche</a>
+            </div>
+        </div>
+
+        <div class="card parent" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ person.parentsFamily.mother.firstName }} {{ person.parentsFamily.mother.lastName }}
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Mère</h6>
+                <p class="card-text">
+                    {% if person.parentsFamily.mother.birthDate is not empty %}
+                        Né le {{ person.parentsFamily.mother.birthDate|date('d/m/Y') }}<br/>
+                    {% endif %}
+                    {% if person.parentsFamily.mother.deathDate is not empty %}
+                        Décédé le {{ person.parentsFamily.mother.deathDate|date('d/m/Y') }}
+                    {% endif %}
+                </p>
+                <a href="{{ path('app_person_fiche', {'pid':person.parentsFamily.mother.pid}) }}" class="card-link">Voir sa fiche</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="family">
+        {% for children in person.parentsFamily.children %}
+            <div class="card children" style="width: 15rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ children.firstName }} {{ children.lastName }}
+                    </h5>
+                    {% if children.id != person.id %}
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {% if children.gender == 'M' %}
+                                Frère
+                            {% else %}
+                                Soeur
+                            {% endif %}
+                        </h6>
+                    {% endif %}
+                    <p class="card-text">
+                        {% if children.birthDate is not empty %}
+                            Né le {{ children.birthDate|date('d/m/Y') }}<br/>
+                        {% endif %}
+                        {% if children.deathDate is not empty %}
+                            Décédé le {{ children.deathDate|date('d/m/Y') }}
+                        {% endif %}
+                    </p>
+                    <a href="{{ path('app_person_fiche', {'pid':children.pid}) }}" class="card-link">Voir sa fiche</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="childrens">
+        {% for family in families %}
+            {% for children in family.children %}
+                <div class="card children" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ children.firstName }} {{ children.lastName }}
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {% if children.gender == 'M' %}
+                                Fils
+                            {% else %}
+                                Fille
+                            {% endif %}
+                        </h6>
+                        <p class="card-text">
+                            {% if children.birthDate is not empty %}
+                                Né le {{ children.birthDate|date('d/m/Y') }}<br/>
+                            {% endif %}
+                            {% if children.deathDate is not empty %}
+                                Décédé le {{ children.deathDate|date('d/m/Y') }}
+                            {% endif %}
+                        </p>
+                        <a href="{{ path('app_person_fiche', {'pid':children.pid}) }}" class="card-link">Voir sa fiche</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

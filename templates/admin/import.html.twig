@@ -8,6 +8,11 @@ Accueil
 
 {% block body %}
 <h1>Importation</h1>
-    <p>{{ importcount }} personnes importées</p>
-    <p>{{ updatecount }} personnes mises à jour</p>
+    <p>Imporation des personnes</p>
+    <p>{{ stats.person.import }} personnes importées</p>
+    <p>{{ stats.person.update }} personnes mises à jour</p>
+
+    <p>Imporation des familles</p>
+    <p>{{ stats.family.import }} familles importées</p>
+    <p>{{ stats.family.update }} familles mises à jour</p>
 {% endblock %}

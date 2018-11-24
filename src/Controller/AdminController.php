@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Person;
+use App\Manager\FamilyManager;
 use App\Manager\PersonManager;
 use PhpGedcom\Record\Indi;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,6 +16,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends Controller 
 {
     /**
+     * @var PersonManager
+     */
+    private $pm;
+
+    /**
+     * @var FamilyManager
+     */
+    private $fm;
+
+    /**
+     * AdminController constructor.
+     * @param PersonManager $personManager
+     * @param FamilyManager $familyManager
+     */
+    public function __construct(PersonManager $personManager, FamilyManager $familyManager)
+    {
+        $this->pm = $personManager;
+        $this->fm = $familyManager;
+    }
+
+    /**
      * @Route("/admin/import", name="app_admin_import")
      *
      * @param Request $request
@@ -21,12 +44,14 @@ class AdminController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function import(Request $request, PersonManager $personManager)
+    public function import(Request $request)
     {
         $parser = new \PhpGedcom\Parser();
         $gedcom = $parser->parse('../import/billy.ged');
-        $importCount = 0;
-        $updateCount = 0;
+        $stats = [
+            'person' => ['import' => 0, 'update' => 0],
+            'family' => ['import' => 0, 'update' => 0],
+        ];
         //importation des personnes
         foreach ($gedcom->getIndi() as $individual) {
             //get individual infos
@@ -38,12 +63,12 @@ class AdminController extends Controller
             $deathDate = $this->getDeathDate($individual);
 
             //create ou update person
-            $person = $personManager->getOrCreateByPid($individual->getId());
+            $person = $this->pm->getOrCreateByPid($individual->getId());
             if(empty($person->getId()))
             {
-                $importCount++;
+                $stats['person']['import']++;
             } else {
-                $updateCount++;
+                $stats['person']['update']++;
             }
             $person->setPid($individual->getId());
             $person->setGender($individual->getSex());
@@ -55,11 +80,48 @@ class AdminController extends Controller
             if(!empty($deathDate)){
                 $person->setDeathDate(new \DateTime($deathDate));
             }
-            $personManager->save($person);
+            $this->pm->save($person);
+        }
+
+        //importation des familles
+        foreach ($gedcom->getFam() as $fam) {
+            //create or update family
+            $family = $this->fm->getOrCreateByFid($fam->getId());
+            if(empty($family->getId()))
+            {
+                $stats['family']['import']++;
+            } else {
+                $stats['family']['update']++;
+            }
+            $family->setFid($fam->getId());
+            //add father.
+            if(!empty($fam->getHusb())) {
+                $father = $this->pm->getByPid($fam->getHusb());
+                if($father instanceof Person) {
+                    $family->setFather($father);
+                }
+            }
+            //add mother.
+            if(!empty($fam->getWife())) {
+                $mother = $this->pm->getByPid($fam->getWife());
+                if($mother instanceof Person) {
+                    $family->setMother($mother);
+                }
+            }
+            //ad childrens.
+            $childrens = $fam->getChil();
+            if(!empty($childrens)) {
+                foreach ($childrens as $children) {
+                    $childrenPerson = $this->pm->getByPid($children);
+                    if($childrenPerson instanceof Person) {
+                        $family->addChild($childrenPerson);
+                    }
+                }
+            }
+            $this->fm->save($family);
         }
         return $this->render('admin/import.html.twig', [
-            'importcount' => $importCount,
-            'updatecount' => $updateCount,
+            'stats' => $stats,
         ]);
     }
 

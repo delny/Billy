@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,11 @@ class Person
      * @ORM\Column(type="string", length=1)
      */
     private $gender;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Family", inversedBy="children")
+     */
+    private $parentsFamily;
 
     public function getId(): ?int
     {
@@ -119,6 +126,18 @@ class Person
     public function setGender(string $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getParentsFamily(): ?Family
+    {
+        return $this->parentsFamily;
+    }
+
+    public function setParentsFamily(?Family $parentsFamily): self
+    {
+        $this->parentsFamily = $parentsFamily;
 
         return $this;
     }
