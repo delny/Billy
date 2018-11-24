@@ -35,6 +35,7 @@ class AdminController extends Controller
             $firstName = $individual->getName()[0]->getGivn();
             $firstName = !empty($firstName) ? $firstName : 'Inconnu';
             $birthDate = $this->getBirthDate($individual);
+            $deathDate = $this->getDeathDate($individual);
 
             //create ou update person
             $person = $personManager->getOrCreateByPid($individual->getId());
@@ -50,6 +51,9 @@ class AdminController extends Controller
             $person->setLastName($lastName);
             if(!empty($birthDate)){
                 $person->setBirthDate(new \DateTime($birthDate));
+            }
+            if(!empty($deathDate)){
+                $person->setDeathDate(new \DateTime($deathDate));
             }
             $personManager->save($person);
         }
@@ -74,6 +78,25 @@ class AdminController extends Controller
         if(\DateTime::createFromFormat('d M Y', $birthDate) !== false)
         {
             return $birthDate;
+        }
+        return null;
+    }
+
+    /**
+     * @param Indi $indi
+     * @return null
+     */
+    private function getDeathDate(Indi $indi)
+    {
+        $eventDeath = $indi->getEven('DEAT');
+        if(empty($eventDeath))
+        {
+            return null;
+        }
+        $deathDate = $eventDeath->getDate();
+        if(\DateTime::createFromFormat('d M Y', $deathDate) !== false)
+        {
+            return $deathDate;
         }
         return null;
     }
