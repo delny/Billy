@@ -33,7 +33,13 @@ Liste des personnes
                     {{ person.firstName }} {{ person.lastName }}
                 </a>
             </td>
-            <td>{{ person.birthDate|date('d/m/Y') }}</td>
+            <td>
+                {% if person.birthDate is not empty %}
+                    {{ person.birthDate|date('d/m/Y') }}
+                {% else %}
+                    Inconnu
+                {% endif %}
+            </td>
             <td>--</td>
             <td>
                 {% if person.deathDate is not empty %}
