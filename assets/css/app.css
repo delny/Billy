@@ -5,3 +5,14 @@ body
     font-family: 'Lora', serif;
     margin:0px;
 }
+
+.parents, .family, .childrens {
+    display: flex;
+    justify-content: center;
+}
+
+.parent, .children {
+    background-color: #f1f1f1;
+    border-radius: 12px;
+    margin:12px 24px
+}

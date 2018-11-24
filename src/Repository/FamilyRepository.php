@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Family;
+use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -31,6 +32,22 @@ class FamilyRepository extends ServiceEntityRepository
             ->setParameter('fid',$fid)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Person $parent
+     * @return mixed
+     */
+    public function findByParent(Person $parent)
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.father', 'father')
+            ->leftJoin('f.mother', 'mother')
+            ->orWhere('father.id = :parentId')
+            ->orWhere('mother.id = :parentId')
+            ->setParameter('parentId',$parent->getId())
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

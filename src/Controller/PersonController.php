@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Manager\FamilyManager;
 use App\Manager\PersonManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,9 +17,20 @@ class PersonController extends Controller
      */
     private $personManager;
 
-    public function __construct(PersonManager $personManager)
+    /**
+     * @var FamilyManager
+     */
+    private $familyManager;
+
+    /**
+     * PersonController constructor.
+     * @param PersonManager $personManager
+     * @param FamilyManager $familyManager
+     */
+    public function __construct(PersonManager $personManager, FamilyManager $familyManager)
     {
         $this->personManager = $personManager;
+        $this->familyManager = $familyManager;
     }
 
     /**
@@ -50,8 +62,10 @@ class PersonController extends Controller
         {
             throw new NotFoundHttpException();
         }
+        $families = $this->familyManager->getByParent($person);
         return $this->render('pages/fiche.html.twig', [
             'person' => $this->personManager->getByPid($pid),
+            'families' => $families
         ]);
     }
 }

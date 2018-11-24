@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\Entity\Family;
+use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -68,6 +69,15 @@ class FamilyManager
     public function getByFid(string $fid)
     {
         return $this->em->getRepository(Family::class)->findByFid($fid);
+    }
+
+    /**
+     * @param Person $person
+     * @return mixed
+     */
+    public function getByParent(Person $person)
+    {
+        return $this->em->getRepository(Family::class)->findByParent($person);
     }
 
 
