@@ -16,7 +16,7 @@ class FamilyManager
     private $em;
 
     /**
-     * PersonManager constructor.
+     * FamilyManager constructor.
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
