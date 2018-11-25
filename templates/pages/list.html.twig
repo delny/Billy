@@ -40,13 +40,21 @@ Liste des personnes
                     Inconnu
                 {% endif %}
             </td>
-            <td>--</td>
+            <td>
+                {% if person.birthPlace is not empty %}
+                    {{ person.birthPlace }}
+                {% endif %}
+            </td>
             <td>
                 {% if person.deathDate is not empty %}
                     {{ person.deathDate|date('d/m/Y') }}
                 {% endif %}
             </td>
-            <td>--</td>
+            <td>
+                {% if person.deathPlace is not empty %}
+                    {{ person.deathPlace }}
+                {% endif %}
+            </td>
         </tr>
     {% else %}
         <tr>
