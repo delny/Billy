@@ -29,7 +29,7 @@ class FamilyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.fid = :fid')
-            ->setParameter('fid',$fid)
+            ->setParameter('fid', $fid)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -45,7 +45,7 @@ class FamilyRepository extends ServiceEntityRepository
             ->leftJoin('f.mother', 'mother')
             ->orWhere('father.id = :parentId')
             ->orWhere('mother.id = :parentId')
-            ->setParameter('parentId',$parent->getId())
+            ->setParameter('parentId', $parent->getId())
             ->getQuery()
             ->getResult();
     }

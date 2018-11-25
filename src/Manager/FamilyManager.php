@@ -38,8 +38,7 @@ class FamilyManager
      */
     public function save(Family $family)
     {
-        if(null === $family->getId())
-        {
+        if (null === $family->getId()) {
             $this->em->persist($family);
         }
 
@@ -54,7 +53,7 @@ class FamilyManager
     public function getOrCreateByFid(string $fid)
     {
         $family = $this->getByFid($fid);
-        if(empty($family)) {
+        if (empty($family)) {
             $family = $this->create();
         }
 
@@ -79,6 +78,4 @@ class FamilyManager
     {
         return $this->em->getRepository(Family::class)->findByParent($person);
     }
-
-
 }

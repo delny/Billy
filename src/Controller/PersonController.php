@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-
 use App\Manager\FamilyManager;
 use App\Manager\PersonManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PersonController extends Controller
 {
@@ -44,6 +43,7 @@ class PersonController extends Controller
     {
         return $this->render('pages/list.html.twig', [
             'persons' => $this->personManager->findByLetter($letter),
+            'letterChoice' => $letter,
         ]);
     }
 
@@ -58,8 +58,7 @@ class PersonController extends Controller
     public function ficheAction(Request $request, string $pid)
     {
         $person = $this->personManager->getByPid($pid);
-        if(empty($person))
-        {
+        if (empty($person)) {
             throw new NotFoundHttpException();
         }
         $families = $this->familyManager->getByParent($person);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Manager;
+
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Person;
 
@@ -8,7 +9,7 @@ use App\Entity\Person;
  * Class PersonManager
  * @package App\Manager
  */
-class PersonManager 
+class PersonManager
 {
     /**
      * @var EntityManagerInterface
@@ -37,8 +38,7 @@ class PersonManager
      */
     public function save(Person $person)
     {
-        if(null === $person->getId())
-        {
+        if (null === $person->getId()) {
             $this->em->persist($person);
         }
 
@@ -53,8 +53,7 @@ class PersonManager
     public function getOrCreateByPid($pid)
     {
         $person = $this->getByPid($pid);
-        if(empty($person))
-        {
+        if (empty($person)) {
             $person = $this->create();
         }
         return $person;
@@ -95,6 +94,4 @@ class PersonManager
     {
         return $this->em->getRepository(Person::class)->findByLetter($letter);
     }
-
-
 }

@@ -28,7 +28,7 @@ class PersonRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.pid = :pid')
-            ->setParameter('pid',$pid)
+            ->setParameter('pid', $pid)
             ->getQuery()
             ->getOneOrNullResult();
     }

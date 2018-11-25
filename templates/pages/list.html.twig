@@ -8,10 +8,10 @@ Liste des personnes
 
 {% block body %}
 <h1>Liste des personnes</h1>
-<ul class="nav">
+<ul class="nav nav-pills">
     {% for letter in range('A','Z') %}
         <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_person_list', {'letter':letter}) }}">{{  letter }}</a>
+            <a class="nav-link{% if letterChoice == letter %} active{% endif %}" href="{{ path('app_person_list', {'letter':letter}) }}">{{  letter }}</a>
         </li>
     {% endfor %}
 </ul>

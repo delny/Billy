@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AdminController
  * @package App\Controller
  */
-class AdminController extends Controller 
+class AdminController extends Controller
 {
     /**
      * @var PersonManager
@@ -64,8 +64,7 @@ class AdminController extends Controller
 
             //create ou update person
             $person = $this->pm->getOrCreateByPid($individual->getId());
-            if(empty($person->getId()))
-            {
+            if (empty($person->getId())) {
                 $stats['person']['import']++;
             } else {
                 $stats['person']['update']++;
@@ -74,10 +73,10 @@ class AdminController extends Controller
             $person->setGender($individual->getSex());
             $person->setFirstName($firstName);
             $person->setLastName($lastName);
-            if(!empty($birthDate)){
+            if (!empty($birthDate)) {
                 $person->setBirthDate(new \DateTime($birthDate));
             }
-            if(!empty($deathDate)){
+            if (!empty($deathDate)) {
                 $person->setDeathDate(new \DateTime($deathDate));
             }
             $this->pm->save($person);
@@ -87,33 +86,32 @@ class AdminController extends Controller
         foreach ($gedcom->getFam() as $fam) {
             //create or update family
             $family = $this->fm->getOrCreateByFid($fam->getId());
-            if(empty($family->getId()))
-            {
+            if (empty($family->getId())) {
                 $stats['family']['import']++;
             } else {
                 $stats['family']['update']++;
             }
             $family->setFid($fam->getId());
             //add father.
-            if(!empty($fam->getHusb())) {
+            if (!empty($fam->getHusb())) {
                 $father = $this->pm->getByPid($fam->getHusb());
-                if($father instanceof Person) {
+                if ($father instanceof Person) {
                     $family->setFather($father);
                 }
             }
             //add mother.
-            if(!empty($fam->getWife())) {
+            if (!empty($fam->getWife())) {
                 $mother = $this->pm->getByPid($fam->getWife());
-                if($mother instanceof Person) {
+                if ($mother instanceof Person) {
                     $family->setMother($mother);
                 }
             }
             //ad childrens.
             $childrens = $fam->getChil();
-            if(!empty($childrens)) {
+            if (!empty($childrens)) {
                 foreach ($childrens as $children) {
                     $childrenPerson = $this->pm->getByPid($children);
-                    if($childrenPerson instanceof Person) {
+                    if ($childrenPerson instanceof Person) {
                         $family->addChild($childrenPerson);
                     }
                 }
@@ -132,13 +130,11 @@ class AdminController extends Controller
     private function getBirthDate(Indi $indi)
     {
         $eventBirth = $indi->getEven('BIRT');
-        if(empty($eventBirth))
-        {
+        if (empty($eventBirth)) {
             return null;
         }
         $birthDate = $eventBirth->getDate();
-        if(\DateTime::createFromFormat('d M Y', $birthDate) !== false)
-        {
+        if (\DateTime::createFromFormat('d M Y', $birthDate) !== false) {
             return $birthDate;
         }
         return null;
@@ -151,13 +147,11 @@ class AdminController extends Controller
     private function getDeathDate(Indi $indi)
     {
         $eventDeath = $indi->getEven('DEAT');
-        if(empty($eventDeath))
-        {
+        if (empty($eventDeath)) {
             return null;
         }
         $deathDate = $eventDeath->getDate();
-        if(\DateTime::createFromFormat('d M Y', $deathDate) !== false)
-        {
+        if (\DateTime::createFromFormat('d M Y', $deathDate) !== false) {
             return $deathDate;
         }
         return null;
