@@ -60,7 +60,9 @@ class AdminController extends Controller
             $firstName = $individual->getName()[0]->getGivn();
             $firstName = !empty($firstName) ? $firstName : 'Inconnu';
             $birthDate = $this->getBirthDate($individual);
+            $birthPlace = $this->getBirthPlace($individual);
             $deathDate = $this->getDeathDate($individual);
+            $deathPlace = $this->getDeathPlace($individual);
 
             //create ou update person
             $person = $this->pm->getOrCreateByPid($individual->getId());
@@ -76,8 +78,14 @@ class AdminController extends Controller
             if (!empty($birthDate)) {
                 $person->setBirthDate(new \DateTime($birthDate));
             }
+            if (!empty($birthPlace)) {
+                $person->setBirthPlace($birthPlace);
+            }
             if (!empty($deathDate)) {
                 $person->setDeathDate(new \DateTime($deathDate));
+            }
+            if (!empty($deathPlace)) {
+                $person->setDeathPlace($deathPlace);
             }
             $this->pm->save($person);
         }
@@ -144,6 +152,23 @@ class AdminController extends Controller
      * @param Indi $indi
      * @return null
      */
+    private function getBirthPlace(Indi $indi)
+    {
+        $eventBirth = $indi->getEven('BIRT');
+        if (empty($eventBirth)) {
+            return null;
+        }
+        $birthPlace = $eventBirth->getPlac();
+        if (!empty($birthPlace) && !empty($birthPlace->getPlac())) {
+            return $birthPlace->getPlac();
+        }
+        return null;
+    }
+
+    /**
+     * @param Indi $indi
+     * @return null
+     */
     private function getDeathDate(Indi $indi)
     {
         $eventDeath = $indi->getEven('DEAT');
@@ -153,6 +178,23 @@ class AdminController extends Controller
         $deathDate = $eventDeath->getDate();
         if (\DateTime::createFromFormat('d M Y', $deathDate) !== false) {
             return $deathDate;
+        }
+        return null;
+    }
+
+    /**
+     * @param Indi $indi
+     * @return null
+     */
+    private function getDeathPlace(Indi $indi)
+    {
+        $eventDeath = $indi->getEven('DEAT');
+        if (empty($eventDeath)) {
+            return null;
+        }
+        $deathPlace = $eventDeath->getPlac();
+        if (!empty($deathPlace) && !empty($deathPlace->getPlac())) {
+            return $deathPlace->getPlac();
         }
         return null;
     }

@@ -53,6 +53,16 @@ class Person
      */
     private $parentsFamily;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $birthPlace;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $deathPlace;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +148,30 @@ class Person
     public function setParentsFamily(?Family $parentsFamily): self
     {
         $this->parentsFamily = $parentsFamily;
+
+        return $this;
+    }
+
+    public function getBirthPlace(): ?string
+    {
+        return $this->birthPlace;
+    }
+
+    public function setBirthPlace(?string $birthPlace): self
+    {
+        $this->birthPlace = $birthPlace;
+
+        return $this;
+    }
+
+    public function getDeathPlace(): ?string
+    {
+        return $this->deathPlace;
+    }
+
+    public function setDeathPlace(?string $deathPlace): self
+    {
+        $this->deathPlace = $deathPlace;
 
         return $this;
     }
