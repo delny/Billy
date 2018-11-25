@@ -9,8 +9,9 @@ Fiche d'une personne
 {% block body %}
 <h1>Fiche de {{ person.firstName }} {{ person.lastName }}</h1>
 
+    <h2>Parents</h2>
     <div class="parents">
-        <div class="card parent" style="width: 15rem;">
+        <div class="card parent">
             <div class="card-body">
                 <h5 class="card-title">
                     {{ person.parentsFamily.father.firstName }} {{ person.parentsFamily.father.lastName }}
@@ -59,6 +60,7 @@ Fiche d'une personne
         </div>
     </div>
 
+    <h2>Frères et Soeurs</h2>
     <div class="family">
         {% for children in person.parentsFamily.children %}
             <div class="card children">
@@ -80,13 +82,13 @@ Fiche d'une personne
                             Né le {{ children.birthDate|date('d/m/Y') }}<br/>
                         {% endif %}
                         {% if children.birthPlace is not empty %}
-                            à {{ children.birthPlace }}
+                            à {{ children.birthPlace }}<br/>
                         {% endif %}
                         {% if children.deathDate is not empty %}
                             Décédé le {{ children.deathDate|date('d/m/Y') }}<br/>
                         {% endif %}
                         {% if children.deathPlace is not empty %}
-                            à {{ children.deathPlace }}
+                            à {{ children.deathPlace }}<br/>
                         {% endif %}
                     </p>
                     <a href="{{ path('app_person_fiche', {'pid':children.pid}) }}" class="card-link">Voir sa fiche</a>
@@ -95,6 +97,7 @@ Fiche d'une personne
         {% endfor %}
     </div>
 
+    <h2>Enfants</h2>
     <div class="childrens">
         {% for family in families %}
             {% for children in family.children %}
@@ -115,13 +118,13 @@ Fiche d'une personne
                                 Né le {{ children.birthDate|date('d/m/Y') }}<br/>
                             {% endif %}
                             {% if children.birthPlace is not empty %}
-                                à {{ children.birthPlace }}
+                                à {{ children.birthPlace }}<br/>
                             {% endif %}
                             {% if children.deathDate is not empty %}
-                                Décédé le {{ children.deathDate|date('d/m/Y') }}
+                                Décédé le {{ children.deathDate|date('d/m/Y') }}<br/>
                             {% endif %}
                             {% if children.deathPlace is not empty %}
-                                à {{ children.deathPlace }}
+                                à {{ children.deathPlace }}<br/>
                             {% endif %}
                         </p>
                         <a href="{{ path('app_person_fiche', {'pid':children.pid}) }}" class="card-link">Voir sa fiche</a>
