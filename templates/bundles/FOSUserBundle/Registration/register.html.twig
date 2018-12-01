@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+{{ parent() }}
+Demander un compte
+{% endblock %}
+{% block body %}
+    {% include "@FOSUser/Registration/register_content.html.twig" %}
+{% endblock body %}
