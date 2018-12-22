@@ -19,8 +19,25 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $person;
+
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        return $this;
     }
 }
