@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +60,11 @@ class Person
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $deathPlace;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="person", cascade={"persist", "remove"})
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -172,6 +175,24 @@ class Person
     public function setDeathPlace(?string $deathPlace): self
     {
         $this->deathPlace = $deathPlace;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPerson = $user === null ? null : $this;
+        if ($newPerson !== $user->getPerson()) {
+            $user->setPerson($newPerson);
+        }
 
         return $this;
     }

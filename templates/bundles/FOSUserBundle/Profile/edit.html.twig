@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+    Modifier mon profil
+{% endblock %}
+
+{% block body %}
+{% include "@FOSUser/Profile/edit_content.html.twig" %}
+{% endblock body %}

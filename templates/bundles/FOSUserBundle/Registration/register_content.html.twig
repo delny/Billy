@@ -1,0 +1,53 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h2>Demander un compte</h2>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+{{ form_label(form.email) }}
+{% if form_errors(form.email) %}
+    <div class="alert alert-danger">
+        {{ form_errors(form.email) }}
+    </div>
+{% endif %}
+<div class="form-group">
+    {{ form_widget(form.email, {'attr': {'class':'form-control'}}) }}
+</div>
+
+
+{{ form_label(form.username) }}
+{% if form_errors(form.username) %}
+    <div class="alert alert-danger">
+        {{ form_errors(form.username) }}
+    </div>
+{% endif %}
+
+<div class="form-group">
+    {{ form_widget(form.username, {'attr': {'class':'form-control'}}) }}
+</div>
+
+{{ form_label(form.plainPassword.first) }}
+{% if form_errors(form.plainPassword.first) %}
+    <div class="alert alert-danger">
+        {{ form_errors(form.plainPassword.first) }}
+    </div>
+{% endif %}
+<div class="form-group">
+    {{ form_widget(form.plainPassword.first, {'attr': {'class':'form-control'}}) }}
+</div>
+
+
+{{ form_label(form.plainPassword.second,"Confirmez votre mot de passe") }}
+{% if form_errors(form.plainPassword.second) %}
+    <div class="alert alert-danger">
+        {{ form_errors(form.plainPassword.second) }}
+    </div>
+{% endif %}
+{{ form_widget(form.plainPassword.second, {'attr': {'class':'form-control'}}) }}
+
+<button type="submit" class="btn btn-primary">{{ 'registration.submit'|trans }}</button>
+<p>
+    Déjà un compte ?
+    <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+</p>
+
+{{ form_end(form) }}

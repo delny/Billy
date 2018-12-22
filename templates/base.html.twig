@@ -22,12 +22,12 @@
             <ul class="navbar-nav">
                 {% if app.user %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Param&egrave;tres</a>
-                            <a class="dropdown-item" href="#">Fiche public</a>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}">Mon compte</a>
+                            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
                         </div>
                     </li>
                 {% else %}
