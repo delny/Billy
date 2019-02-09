@@ -196,4 +196,12 @@ class Person
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->firstName.$this->lastName;
+    }
 }
