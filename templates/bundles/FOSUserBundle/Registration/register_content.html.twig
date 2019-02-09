@@ -3,6 +3,11 @@
 <h2>Demander un compte</h2>
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
 
+{% if form_errors(form) %}
+    <div class="alert alert-danger">
+        {{ form_errors(form) }}
+    </div>
+{% endif %}
 {{ form_label(form.email) }}
 {% if form_errors(form.email) %}
     <div class="alert alert-danger">
