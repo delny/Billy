@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9595d57721bb85000e4464255f6858b",
+    "content-hash": "30d9b3a85d924057145e8f11f800e722",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5446,16 +5446,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.9",
+            "version": "v4.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db"
+                "reference": "a3e81b995be65597ec709bb5fa188397a38a8c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db",
-                "reference": "1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/a3e81b995be65597ec709bb5fa188397a38a8c25",
+                "reference": "a3e81b995be65597ec709bb5fa188397a38a8c25",
                 "shasum": ""
             },
             "require": {
@@ -5499,20 +5499,20 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26T10:26:29+00:00"
+            "time": "2019-01-16T19:07:26+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.1.9",
+            "version": "v4.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "9e4dc57949853315561f0cd5eb84d0707465502a"
+                "reference": "70f0cdf76779af4d5be14a3cd11c0200fd304ee6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/9e4dc57949853315561f0cd5eb84d0707465502a",
-                "reference": "9e4dc57949853315561f0cd5eb84d0707465502a",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/70f0cdf76779af4d5be14a3cd11c0200fd304ee6",
+                "reference": "70f0cdf76779af4d5be14a3cd11c0200fd304ee6",
                 "shasum": ""
             },
             "require": {
@@ -5552,7 +5552,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-11T19:51:29+00:00"
+            "time": "2019-01-16T18:35:49+00:00"
         },
         {
             "name": "symfony/debug-bundle",
@@ -5900,16 +5900,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v4.2.1",
+            "version": "v4.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "3f03b625710f24071e2937e88112e9a19099c9eb"
+                "reference": "cb5e1b8960407cbbfa30c4aecdcdfb0486c22ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/3f03b625710f24071e2937e88112e9a19099c9eb",
-                "reference": "3f03b625710f24071e2937e88112e9a19099c9eb",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/cb5e1b8960407cbbfa30c4aecdcdfb0486c22ada",
+                "reference": "cb5e1b8960407cbbfa30c4aecdcdfb0486c22ada",
                 "shasum": ""
             },
             "require": {
@@ -5928,7 +5928,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.1-dev"
                 },
                 "thanks": {
                     "name": "phpunit/phpunit",
@@ -5962,7 +5962,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-11-26T10:55:26+00:00"
+            "time": "2019-01-24T21:39:39+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
